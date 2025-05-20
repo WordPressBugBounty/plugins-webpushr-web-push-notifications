@@ -68,7 +68,7 @@ d.body.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
 <?php } elseif( in_array('super-progressive-web-apps/superpwa.php',$webpushr_active_plugins) || in_array('pwa/pwa.php',$webpushr_active_plugins) ||  in_array('pwa-for-wp/pwa-for-wp.php',$webpushr_active_plugins) ) {?>
 	webpushr('setup',{'key':'<?php echo get_option( 'webpushr_public_key' ); ?>','sw':'none'});
 <?php } else { ?>
-	webpushr('setup',{'key':'<?php echo get_option( 'webpushr_public_key' ); ?>','sw':'<?php echo plugins_url('sdk_files/webpushr-sw.js.php',dirname(__FILE__));?>'});
+	webpushr('setup',{'key':'<?php echo get_option( 'webpushr_public_key' ); ?>','sw':'/wp-content/plugins/webpushr-web-push-notifications/sdk_files/webpushr-sw.js.php'});
 <?php } ?>
 </script>
 	<?php	}	
@@ -114,7 +114,7 @@ function wpp_settings_saved() {
 function wpp_settings_failed() {
   ?>
   <div class="notice notice-error is-dismissible">
-      <p><?php _e( 'Invalid REST API key! Please provide valid a valid REST API key' ); ?></p>
+      <p><?php _e( 'Invalid REST API key! Please provide a valid REST API key' ); ?></p>
   </div>
   <?php
 }
@@ -243,6 +243,8 @@ function post_published_notification( $new_status, $old_status, $post, $send_not
 
 	$wppAutoHide = 1;
 	$wppNotificationTitle = "";
+	$wppNotificationMsg = "";
+	
 	//notification for new post
 	if (  $send_notification_for_this_post && get_option('wpp_enable_for_post') == 'on' && in_array($post->post_type,json_decode(get_option('wpp_post_type')))) 
 	{
@@ -324,6 +326,7 @@ function post_published_notification( $new_status, $old_status, $post, $send_not
 		$new_regular_price 	= sprintf($priceFormat,$wooCurrency,$_POST['_regular_price']);
 		$sale_price 			= sprintf($priceFormat,$wooCurrency,$_POST['_sale_price']);
 
+		$notificationTitle = "";
 		//notification data for new woo product
 		if( get_option('webpushr_enable_woo_new_prod') == 'on' && isset($_POST['wpp_send_new_post_notification']) && ($_POST['wpp_send_new_post_notification'] || get_post_meta($ID,'webpushr_notification_preview',true)) ){
 			$wppNotificationName = 'WooCommerce new product alert';
@@ -380,7 +383,7 @@ function post_published_notification( $new_status, $old_status, $post, $send_not
 
 
 	//send notificaiton
-	if($wppNotificationTitle)
+	if($wppNotificationTitle || $wppNotificationMsg)
 	{
 
 		$req_data = array(								
@@ -477,7 +480,7 @@ function wpp_notification_box(){
 	$subscriptionStatus 	= wpp_api_request('https://api.webpushr.com/v1/segments');
 
 
-	if( ! $subscriptionStatus['response_array']['subscription_status'] ){	
+	if( ! empty($subscriptionStatus['response_array']['subscription_status']) ){	
 		if( ( json_decode(get_option('wpp_post_sendTo'))[0] && $wppNotificationForPost == 'on' && in_array( $post->post_type, json_decode(get_option('wpp_post_type'))) ) || ( $post->post_type == 'product' && defined('WPP_WOOCOMMERCE')  )  ){
 			echo "<input type='hidden' name='wpp_send_new_post_notification_metabox_present' value='1'>";
 			echo "<input type='hidden' name='wpp_send_new_post_notification' value='0'>";

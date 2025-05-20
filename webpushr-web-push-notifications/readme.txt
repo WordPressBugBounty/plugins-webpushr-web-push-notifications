@@ -3,8 +3,8 @@ Contributors: Webpushr
 Plugin Name: Webpushr Push Notifications
 Tags: web push notifications, push notifications, web push, free web push notifications, webpushr
 Requires at least: 3.8
-Tested up to: 6.5
-Stable tag: 4.36.0
+Tested up to: 6.8.1
+Stable tag: 4.37.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.webpushr.com
@@ -104,6 +104,8 @@ Your trust is the most important thing to us and we NEVER have and NEVER will se
 
 
 == Changelog ==
+= 4.37.0 =
+- Fixed minor issues
 = 4.36.0 =
 - Fixed minor issues related to compatibility with 3rd-party PWA plugins
 = 4.35.0 =
@@ -260,6 +262,8 @@ Your trust is the most important thing to us and we NEVER have and NEVER will se
 
 
 == Upgrade Notice ==
+= 4.37.0 =
+- Fixed minor issues
 = 4.36.0 =
 - Fixed minor issues related to compatibility with 3rd-party PWA plugins
 = 4.35.0 =

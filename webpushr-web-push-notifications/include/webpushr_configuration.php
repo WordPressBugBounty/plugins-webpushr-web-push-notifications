@@ -172,16 +172,10 @@
                                         </td>
                                     </tr>
 
-                                    <?php
-                                        $plugin_url = plugins_url();
-                                        $site_url   = get_option('siteurl');
-                                        if( strpos($plugin_url, $site_url) === false){ ?>
-                                            <tr id="webpushr-sw-path">
-                                                <th scope="row"><label for="webpushr_root_sw">Service Worker</label></th>
-                                                <td><label><input type="checkbox" name="webpushr_root_sw" id="webpushr_root_sw"   <?php if(  get_option('wpp_disable_prompt_code') &&  get_option('wpp_disable_prompt_code')['sw_path'] == 'root'   ) { ?> checked="checked" <?php } ?> /> Use alternative path for the service worker file. <strong>Caution:</strong> only check this if Webpushr plugin fails to function because it is not able to access the default service worker path.</label></td>
-                                            </tr>
-                                        <?php } 
-                                    ?>
+                                    <tr id="webpushr-sw-path">
+                                        <th scope="row"><label for="webpushr_root_sw">Service Worker</label></th>
+                                        <td><label><input type="checkbox" name="webpushr_root_sw" id="webpushr_root_sw"   <?php if(  get_option('wpp_disable_prompt_code') &&  get_option('wpp_disable_prompt_code')['sw_path'] == 'root'   ) { ?> checked="checked" <?php } ?> /> Use alternative path for the service worker file. <strong>Caution:</strong> only check this if Webpushr plugin fails to function because it is not able to access the default service worker path.</label></td>
+                                    </tr>
 
 
 
