@@ -480,7 +480,7 @@ function wpp_notification_box(){
 	$subscriptionStatus 	= wpp_api_request('https://api.webpushr.com/v1/segments');
 
 
-	if( ! empty($subscriptionStatus['response_array']['subscription_status']) ){	
+	if( empty($subscriptionStatus['response_array']['subscription_status']) ){	
 		if( ( json_decode(get_option('wpp_post_sendTo'))[0] && $wppNotificationForPost == 'on' && in_array( $post->post_type, json_decode(get_option('wpp_post_type'))) ) || ( $post->post_type == 'product' && defined('WPP_WOOCOMMERCE')  )  ){
 			echo "<input type='hidden' name='wpp_send_new_post_notification_metabox_present' value='1'>";
 			echo "<input type='hidden' name='wpp_send_new_post_notification' value='0'>";
