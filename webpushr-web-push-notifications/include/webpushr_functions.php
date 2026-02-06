@@ -327,6 +327,10 @@ function post_published_notification( $new_status, $old_status, $post, $send_not
 		$sale_price 			= sprintf($priceFormat,$wooCurrency,$_POST['_sale_price']);
 
 		$notificationTitle = "";
+		$notificationMsg = "";
+		$notificationImage = "";
+		$notificationUrl = "";
+		$notificationIcon = "";
 		//notification data for new woo product
 		if( get_option('webpushr_enable_woo_new_prod') == 'on' && isset($_POST['wpp_send_new_post_notification']) && ($_POST['wpp_send_new_post_notification'] || get_post_meta($ID,'webpushr_notification_preview',true)) ){
 			$wppNotificationName = 'WooCommerce new product alert';
@@ -439,6 +443,9 @@ function webpushr_test_notification(){
 function create_wpp_post_notification_box(){
 	global $post;
 	
+	if( ! $post )
+		return; 
+
 	$selectedPostType = json_decode(get_option('wpp_post_type'));
 
 	if( defined('WPP_WOOCOMMERCE') && $post->post_status	!= 'publish' && get_option('webpushr_enable_woo_new_prod') == 'on')
@@ -446,7 +453,7 @@ function create_wpp_post_notification_box(){
 	
 	add_meta_box ( 'webpushr-metabox', 'Webpushr Notification', 'wpp_notification_box', $selectedPostType, "side", "high" );
 	
-	if( defined('WPP_WOOCOMMERCE') &&   $post->post_status	== 'publish' && $post->post_type == 'product'  )
+	if( defined('WPP_WOOCOMMERCE') &&  $post->post_status	== 'publish' && $post->post_type == 'product'  )
 		add_action( 'woocommerce_product_options_general_product_data', 'webpushr_woo_custom_fileds' );
 }
 function webpushr_preview_button(){

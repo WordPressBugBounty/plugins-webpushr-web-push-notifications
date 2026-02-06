@@ -25,6 +25,16 @@ if ( ! is_numeric($post_id) ){
 
 $post = get_post($post_id);
 
+if ($post && $post->post_status == 'private') {
+	wp_redirect('/wp-admin');
+   exit();
+}
+
+if( ! in_array($post->post_type,json_decode(get_option('wpp_post_type'))) ){
+	wp_redirect('/wp-admin');
+   exit();   
+}
+
 $wppNotificationTitle 	= get_option('wpp_post_title');
 $wppNotificationMsg = (get_post_meta($post->ID,'webpushr_notification_body', true)) ?: get_option('wpp_post_message');
 
