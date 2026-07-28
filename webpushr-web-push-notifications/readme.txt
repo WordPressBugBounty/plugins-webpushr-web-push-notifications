@@ -3,8 +3,8 @@ Contributors: Webpushr
 Plugin Name: Webpushr Push Notifications
 Tags: web push notifications, push notifications, web push, free web push notifications, webpushr
 Requires at least: 3.8
-Tested up to: 6.9.1
-Stable tag: 4.39.0
+Tested up to: 7.0.2
+Stable tag: 4.41.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.webpushr.com
@@ -30,7 +30,7 @@ Why choose Webpushr?
 
 Once you have successfully installed and activated Webpushr Plugin, your site visitors will start seeing opt-in message to receive web push notifications from you. Once they have opted in, you can send them push messages anytime you want. 
 
-You can configure the plugin to automatically send push notifications to your subscribers whenever you publish a new post. You can also also view your subscriber count and useful user reports (such as browser & device type), right from the plugin.
+You can configure the plugin to automatically send push notifications to your subscribers whenever you publish a new post. You can also view your subscriber count and useful user reports (such as browser & device type), right from the plugin.
 
 Webpushr offers best-in-class support for WooCommerce sites. You can configure it to automatically send Web Push Notification based alerts for new products, price drops, sales promotions & abandoned carts.
 
@@ -104,6 +104,12 @@ Your trust is the most important thing to us and we NEVER have and NEVER will se
 
 
 == Changelog ==
+= 4.41.0 =
+- Important security improvements 
+= 4.40.0 =
+- Important security improvements  
+= 4.39.1 =
+- Important security improvements  
 = 4.39.0 =
 - Important security improvements  
 = 4.38.0 =
@@ -266,6 +272,12 @@ Your trust is the most important thing to us and we NEVER have and NEVER will se
 
 
 == Upgrade Notice ==
+= 4.41.0 =
+- Important security improvements 
+= 4.40.0 =
+- Important security improvements 
+= 4.39.1 =
+- Important security improvements  
 = 4.39.0 =
 - Important security improvements  
 = 4.38.0 =

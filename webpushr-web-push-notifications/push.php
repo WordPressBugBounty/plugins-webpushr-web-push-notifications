@@ -3,7 +3,7 @@ if( ! defined('ABSPATH') ) exit;
 /*
  * Plugin Name: Webpushr Push Notifications
  * Description: World's best platform for sending web push notifications.
- * Version: 4.39.0
+ * Version: 4.41.0
  * Author: Webpushr Web Push Notifications
  * Author URI: https://www.webpushr.com
  * License: MIT

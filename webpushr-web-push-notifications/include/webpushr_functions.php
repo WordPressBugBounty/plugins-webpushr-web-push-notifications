@@ -23,6 +23,7 @@ function webpushr_generate_sw($query){
 		exit();
 	}
 }
+
 	
 
 
@@ -510,11 +511,12 @@ function wpp_notification_box(){
 
 			//notification Title
 			$webpushr_notification_title 	 = get_post_meta($post->ID,'webpushr_notification_title',true)?: get_option('wpp_post_title');
-			echo "<p style='margin-top:1em'><label><strong>Notification Title</strong></label><input type='text' style='width:100%; class='webpushr-metabox'  name='webpushr_notification_title' value='". $webpushr_notification_title . "'></input></p>";	
+			echo "<p style='margin-top:1em'><label><strong>Notification Title</strong></label><input type='text' style='width:100%;' class='webpushr-metabox'  name='webpushr_notification_title' value='". esc_attr($webpushr_notification_title) . "'></input></p>";	
+
 
 			//notification Body
 			$webpushr_notification_body 	 = get_post_meta($post->ID,'webpushr_notification_body',true)?: get_option('wpp_post_message');
-			echo "<p style='margin-top:1em'><label><strong>Notification Message</strong></label><textarea style='width:100%; resize:none' class='webpushr-metabox' rows='5' name='webpushr_notification_body'>". $webpushr_notification_body ."</textarea></p>";
+			echo "<p style='margin-top:1em'><label><strong>Notification Message</strong></label><textarea style='width:100%; resize:none' class='webpushr-metabox' rows='5' name='webpushr_notification_body'>". esc_textarea($webpushr_notification_body) ."</textarea></p>";
 
 			//segments
 			echo "<p style='margin-bottom:5px;'><strong>Select Segment(s)</strong> <a href='https://app.webpushr.com/segments' target='_blank'>Manage</a></p>";
@@ -689,17 +691,39 @@ function webpushr_send_abandoned_notification(){
 //save send notification flage
 function save_send_notification_flag($post_id, $post){
 
-	if( isset($_POST['wpp_send_new_post_notification_metabox_present']) && isset($_POST['wpp_send_new_post_notification']) )
-		update_post_meta ( $post_id, 'wpp_send_notification_for_new_post', sanitize_text_field($_POST['wpp_send_new_post_notification']) );
+	if( isset($_POST['wpp_send_new_post_notification_metabox_present']) && isset($_POST['wpp_send_new_post_notification']) ){
+		update_post_meta( 
+			$post_id, 
+			'wpp_send_notification_for_new_post', 
+			sanitize_text_field( wp_unslash($_POST['wpp_send_new_post_notification'])) 
+		);
+	}
 
-	if( isset($_POST['webpushr_segment']) )
-		update_post_meta( $post_id, 'webpushr_segment', $_POST['webpushr_segment'] );
 
-	if( isset($_POST['webpushr_notification_title']) )
-		update_post_meta( $post_id, 'webpushr_notification_title', $_POST['webpushr_notification_title'] );
+	if ( isset( $_POST['webpushr_segment'] ) && is_array( $_POST['webpushr_segment'] ) ) {
+		$segments = array_map( 'sanitize_text_field', wp_unslash( $_POST['webpushr_segment'] ) );
+		update_post_meta( 
+			$post_id, 
+			'webpushr_segment', 
+			$segments 
+		);
+	}
 
-	if( isset($_POST['webpushr_notification_body']) )
-		update_post_meta( $post_id, 'webpushr_notification_body', $_POST['webpushr_notification_body'] );
+	if ( isset( $_POST['webpushr_notification_title'] ) ) {
+		update_post_meta(
+			$post_id,
+			'webpushr_notification_title',
+			sanitize_text_field( wp_unslash( $_POST['webpushr_notification_title'] ) )
+		);
+	}
+
+	if ( isset( $_POST['webpushr_notification_body'] ) ) {
+		update_post_meta(
+			$post_id,
+			'webpushr_notification_body',
+			sanitize_textarea_field( wp_unslash( $_POST['webpushr_notification_body'] ) )
+		);
+	}
 
 	if( !empty($_POST['webpushr_notification_preview']) ){
 		wp_redirect("?p=" . (($post->post_parent) ?: $post_id) . "&action=webpushr-preview");
